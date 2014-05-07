@@ -20,12 +20,11 @@ then
 	for file in $(ls | grep '.ogg'); do
     cp "${file}" $HYDROGEN_DIR/$NAME/
     echo "Copying $file to $HYDROGEN_DIR/$NAME/$file"
-		instrumentlist="$instrumentlist `cat $SCRIPT_DIR/instrument.txt | sed -e "s/__FILENAME__/$file/g"`"
+		instrumentlist="$instrumentlist `cat $SCRIPT_DIR/ressources/instrument.txt | sed -e "s/__FILENAME__/$file/g"`"
 	done
- echo "BEGIN $instrumentlist END" 
-  cat $SCRIPT_DIR/instrumentlist_header.txt | sed -e "s/__NAME__/$NAME/" > $HYDROGEN_DIR/$NAME/drumkit.xml
+  cat $SCRIPT_DIR/ressources/instrumentlist_header.txt | sed -e "s/__NAME__/$NAME/" > $HYDROGEN_DIR/$NAME/drumkit.xml
   printf "%s" "$instrumentlist" >> $HYDROGEN_DIR/$NAME/drumkit.xml
-  cat $SCRIPT_DIR/instrumentlist_footer.txt >> $HYDROGEN_DIR/$NAME/drumkit.xml
+  cat $SCRIPT_DIR/ressources/instrumentlist_footer.txt >> $HYDROGEN_DIR/$NAME/drumkit.xml
 )
 else
 	echo "Directory $i is not valid."
