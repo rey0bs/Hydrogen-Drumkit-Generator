@@ -13,7 +13,7 @@ Usage
 ----------------------
     ./generate_drumkit.sh [--key=value] [SAMPLE_DIR] [NAME_OF_DRUMKIT]
 
-[--key=value] will replace any default value in xml instrument.txt template.
+[--key=value] will replace any default value in _instrument.txt_ xml template.
 
 See ressources/instrument.txt for full options list.
 
