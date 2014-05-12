@@ -3,8 +3,6 @@ declare -A replaces
 while [ $# -gt 0 ]
 do
       case "$1" in
-              #-v)  vflag=on;;
-              #-f)  filename="$2"; shift;;
               --*)  parameter=${1#--}
                     key=${parameter%=*}
                     value=${parameter#*=}
@@ -15,7 +13,6 @@ do
                    "usage: $0 [--key=value] [SAMPLE_DIR] [NAME_OF_DRUMKIT]"
                 exit 1;;
               *)  break;;
-              #      terminate while loop
       esac
       shift
 done
@@ -36,11 +33,13 @@ then
   instrumentlist=""
   (IFS='
 '
-for file in $(ls | grep -Ei '\.(ogg|wav|flac)'); do
+  cmpt=0
+  for file in $(ls | grep -Ei '\.(ogg|wav|flac)'); do
     cp "${file}" $HYDROGEN_DIR/$NAME/
     echo "Copying $file to $HYDROGEN_DIR/$NAME/$file"
-		instrumentlist="$instrumentlist `cat $SCRIPT_DIR/ressources/instrument.txt | sed -e "s/__FILENAME__/$file/g"`"
-	done
+		instrumentlist="$instrumentlist `cat $SCRIPT_DIR/ressources/instrument.txt | sed -e "s/__FILENAME__/$file/g" | sed -e "s/__ID__/$cmpt/g"`"
+    ((cmpt++)) 
+  done
   for i in "${!replaces[@]}"
   do
     instrumentlist=`printf "%s" "$instrumentlist" | sed -e "s#\(<$i>\)\(.*\)\(</$i>\)#\1${replaces[$i]}\3#g"`
@@ -48,6 +47,7 @@ for file in $(ls | grep -Ei '\.(ogg|wav|flac)'); do
   cat $SCRIPT_DIR/ressources/instrumentlist_header.txt | sed -e "s/__NAME__/$NAME/" > $HYDROGEN_DIR/$NAME/drumkit.xml
   printf "%s" "$instrumentlist" >> $HYDROGEN_DIR/$NAME/drumkit.xml
   cat $SCRIPT_DIR/ressources/instrumentlist_footer.txt >> $HYDROGEN_DIR/$NAME/drumkit.xml
+  echo "Create $HYDROGEN_DIR/$NAME/drumkit.xml"
 )
 else
 	echo "Directory $1 is not valid."

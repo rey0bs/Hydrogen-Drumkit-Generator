@@ -19,7 +19,7 @@ Usage
 ----------------------
     ./generate_drumkit.sh [--key=value] [SAMPLE_DIR] [NAME_OF_DRUMKIT]
 
-[--key=value] will replace any default value in _ressources/instrument.txt_ xml template.
+[--key=value] will replace any default value in _ressources/instrument.txt_ template.
 
 See
 [ressources/instrument.txt](https://github.com/sboye/Hydrogen-Drumkit-Generator/blob/master/ressources/instrument.txt) for full options list.

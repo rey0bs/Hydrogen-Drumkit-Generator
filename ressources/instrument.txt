@@ -1,5 +1,5 @@
   <instrument>
-   <id>1</id>
+   <id>__ID__</id>
    <name>__FILENAME__</name>
    <volume>1</volume>
    <isMuted>false</isMuted>
