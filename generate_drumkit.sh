@@ -36,7 +36,7 @@ then
   instrumentlist=""
   (IFS='
 '
-	for file in $(ls | grep '.ogg'); do
+for file in $(ls | grep -Ei '\.(ogg|wav|flac)'); do
     cp "${file}" $HYDROGEN_DIR/$NAME/
     echo "Copying $file to $HYDROGEN_DIR/$NAME/$file"
 		instrumentlist="$instrumentlist `cat $SCRIPT_DIR/ressources/instrument.txt | sed -e "s/__FILENAME__/$file/g"`"
