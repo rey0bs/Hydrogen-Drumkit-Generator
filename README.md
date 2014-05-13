@@ -7,7 +7,7 @@ You can customize instruments properties with "--" option, see "Usage" for more 
 
 How to install
 --------------------
-Simply download zip file or clone repo :
+Simply [download zip file](https://github.com/sboye/Hydrogen-Drumkit-Generator/archive/master.zip) or clone repo :
 
     git clone https://github.com/sboye/Hydrogen-Drumkit-Generator.git
 
