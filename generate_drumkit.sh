@@ -24,29 +24,29 @@ SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 if [[ -d $1 ]]
 then
-	cd $SAMPLES_DIR
+	cd "$SAMPLES_DIR"
 	if [[ ! -d "$HYDROGEN_DIR/$NAME" ]]
 	then
-		mkdir -p $HYDROGEN_DIR/$NAME
+		mkdir -p "$HYDROGEN_DIR/$NAME"
   fi
- 
+
   instrumentlist=""
   (IFS='
 '
   cmpt=0
   for file in $(ls | grep -Ei '\.(ogg|wav|flac)'); do
-    cp "${file}" $HYDROGEN_DIR/$NAME/
+    cp "${file}" "$HYDROGEN_DIR/$NAME/"
     echo "Copying $file to $HYDROGEN_DIR/$NAME/$file"
 		instrumentlist="$instrumentlist `cat $SCRIPT_DIR/ressources/instrument.txt | sed -e "s/__FILENAME__/$file/g" | sed -e "s/__ID__/$cmpt/g"`"
-    ((cmpt++)) 
+    ((cmpt++))
   done
   for i in "${!replaces[@]}"
   do
     instrumentlist=`printf "%s" "$instrumentlist" | sed -e "s#\(<$i>\)\(.*\)\(</$i>\)#\1${replaces[$i]}\3#g"`
   done
-  cat $SCRIPT_DIR/ressources/instrumentlist_header.txt | sed -e "s/__NAME__/$NAME/" > $HYDROGEN_DIR/$NAME/drumkit.xml
-  printf "%s" "$instrumentlist" >> $HYDROGEN_DIR/$NAME/drumkit.xml
-  cat $SCRIPT_DIR/ressources/instrumentlist_footer.txt >> $HYDROGEN_DIR/$NAME/drumkit.xml
+  cat $SCRIPT_DIR/ressources/instrumentlist_header.txt | sed -e "s/__NAME__/$NAME/" > "$HYDROGEN_DIR/$NAME/drumkit.xml"
+  printf "%s" "$instrumentlist" >> "$HYDROGEN_DIR/$NAME/drumkit.xml"
+  cat $SCRIPT_DIR/ressources/instrumentlist_footer.txt >> "$HYDROGEN_DIR/$NAME/drumkit.xml"
   echo "Create $HYDROGEN_DIR/$NAME/drumkit.xml"
 )
 else
